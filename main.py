@@ -97,4 +97,4 @@ api.add_resource(Corpia, "/ars-corpia/api/corpia")
 api.add_resource(Artist, "/ars-corpia/api/artists")
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=8080, threaded=True)
+    app.run(host='0.0.0.0', port=8080, threaded=True)
