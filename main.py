@@ -1,6 +1,5 @@
-import json
-from flask_restful.utils import cors
 
+from flask_restful.utils import cors
 from logic.ars_corpia_logic.artist_logic import ArtistSingleton
 from logic.ars_corpia_logic.corpia_logic import CorpiaSingleton
 from logic.projects_logic import ProjectsSingleton
@@ -53,6 +52,21 @@ class Artist(Resource):
         return result
 
 
+class Paypal(Resource):
+    @cors.crossdomain(origin='*')
+    def post(self):
+        # check if file exists
+        file = open('templates/paypal_details.html', 'w')
+        data = request.get_data()
+        string_data = data.decode('utf-8')
+        if string_data.__contains__('\r\n\r\n'):
+            string_result = string_data.split('\r\n\r\n')[1].split('\r\n')[0]
+            print(string_result)
+            file.write(str(string_result))
+        file.close()
+        return 'OK , 200'
+
+
 @app.route('/')
 def index_page():
     return render_template("index.html")
@@ -73,18 +87,11 @@ def index_page_corpia():
     return render_template("templates/ars_corpia_templates/index.html")
 
 
-@app.route("/artist")
-def artist_page():
-    return render_template("templates/ars_corpia_templates/artist.html")
-
-
-@app.route("/coripa")
-def corpia_page():
-    return render_template("templates/corpia.html")
 
 
 api.add_resource(Stories, "/api/stories")
 api.add_resource(Projects, "/api/projects")
+api.add_resource(Paypal,'/api/paypal')
 
 api.add_resource(Corpia, "/ars-corpia/api/corpia")
 api.add_resource(Artist, "/ars-corpia/api/artists")
