@@ -74,7 +74,7 @@ def index_page():
 
 @app.route("/paypal")
 def paypal_page():
-    render_template("paypal_details.html")
+    return render_template("paypal_details.html")
 
 @app.route("/projects")
 def artist_page():
