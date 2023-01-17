@@ -61,7 +61,7 @@ class Paypal(Resource):
         if string_data.__contains__('\r\n\r\n'):
             string_result = string_data.split('\r\n\r\n')[1].split('\r\n')[0]
             print(string_result)
-            file.write(string_result)
+            file.write(string_result.rstrip('\"'))
         file.close()
         return 'OK , 200'
 
